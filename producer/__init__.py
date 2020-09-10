@@ -20,9 +20,9 @@ class Producer:
         )
 
     def on_send_success(self, record_metadata):
-        self._logger.info('Topic: ' + record_metadata.topic)
-        self._logger.info('Partition: ' + record_metadata.partition)
-        self._logger.info('Offset: ' + record_metadata.offset)
+        self._logger.info('Topic: ' + str(record_metadata.topic))
+        self._logger.info('Partition: ' + str(record_metadata.partition))
+        self._logger.info('Offset: ' + str(record_metadata.offset))
 
     def on_send_error(self, exception):
         self._logger.error('Error occured.', exc_info=exception)

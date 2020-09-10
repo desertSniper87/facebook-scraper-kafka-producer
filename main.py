@@ -1,5 +1,5 @@
 import logging
-# from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 from constants import Constants
 from producer import Producer
@@ -11,11 +11,15 @@ if __name__ == '__main__':
     constants = Constants()
 
     logger = logging.getLogger('kafka-log')
-    fileHandler = logging.FileHandler(constants.get('log_file'))
     logger.setLevel(logging.DEBUG)
+    fileHandler = logging.FileHandler(constants.get('log_file'))
     fileHandler.setLevel(logging.DEBUG)
 
-    logging.basicConfig(filename=constants.get('log_file'), filemode='w', format='%(name)s - %(levelname)s - %(message)s')
+    def run_scraper():
+        for post in scraper.run():
+            producer.produce_json_data(key=str.encode(post.get('post_id')), data=post)
 
-    for post in scraper.run():
-        producer.produce_json_data(key=str.encode(post.get('post_id')), data=post)
+
+    scheduler = BlockingScheduler()
+    scheduler.add_job(run_scraper, 'interval', minutes=1)
+    scheduler.start()
