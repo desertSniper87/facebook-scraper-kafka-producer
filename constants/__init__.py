@@ -9,9 +9,10 @@ class Constants:
             'log_file': os.path.join(os.getcwd(), 'log/kafka-log.log'),
             'retries': 3,
             'page_names': {
-                'Prothom Alo': 'DailyProthomAlo'
+                'Prothom Alo': 'DailyProthomAlo',
+                'Somoy TV': 'somoynews.tv'
             },
-            'page_n': 3
+            'page_n': 5
         }
 
     def get(self, key):

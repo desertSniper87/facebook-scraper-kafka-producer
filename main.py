@@ -14,6 +14,9 @@ if __name__ == '__main__':
     logger.setLevel(logging.DEBUG)
     fileHandler = logging.FileHandler(constants.get('log_file'))
     fileHandler.setLevel(logging.DEBUG)
+    logger.addHandler(fileHandler)
+
+    print("Apache Kafka running on " + constants.get('bootstrapServers') + " With topic name " + constants.get('topic'))
 
     def run_scraper():
         for post in scraper.run():

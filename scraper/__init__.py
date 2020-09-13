@@ -1,3 +1,5 @@
+from itertools import chain
+
 from facebook_scraper import get_posts
 
 from constants import Constants
