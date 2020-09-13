@@ -18,11 +18,14 @@ if __name__ == '__main__':
 
     print("Apache Kafka running on " + constants.get('bootstrapServers') + " With topic name " + constants.get('topic'))
 
+    pages = constants.get('page_names').values()
     def run_scraper():
-        for post in scraper.run():
-            producer.produce_json_data(key=str.encode(post.get('post_id')), data=post)
+        for page in pages:
+            for post in scraper.run(page):
+                producer.produce_json_data(key=str.encode(post.get('post_id')), data=post)
 
 
     scheduler = BlockingScheduler()
-    scheduler.add_job(run_scraper, 'interval', minutes=1)
+    for page in pages:
+        scheduler.add_job(run_scraper, 'interval', minutes=2)
     scheduler.start()

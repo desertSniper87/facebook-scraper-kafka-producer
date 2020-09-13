@@ -7,8 +7,6 @@ from constants import Constants
 class Scraper:
     def __init__(self):
         self.constants = Constants()
-        self.pages = self.constants.get('page_names').values()
 
-    def run(self):
-        for page in (self.pages):
+    def run(self, page):
             return get_posts(page, pages=self.constants.get('page_n'))
